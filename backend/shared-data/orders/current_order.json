@@ -1,0 +1,26 @@
+{
+  "customer_name": "Rahul Singh",
+  "address": "Bangalore, Karnataka",
+  "items": [
+    {
+      "id": "bread_ww",
+      "name": "Whole Wheat Bread",
+      "quantity": 2,
+      "price": 45
+    },
+    {
+      "id": "peanut_butter",
+      "name": "Peanut Butter (Creamy)",
+      "quantity": 1,
+      "price": 220
+    },
+    {
+      "id": "milk_1l",
+      "name": "Milk 1L",
+      "quantity": 1,
+      "price": 56
+    }
+  ],
+  "total": 366,
+  "timestamp": "2025-02-15T17:42:18.232Z"
+}
