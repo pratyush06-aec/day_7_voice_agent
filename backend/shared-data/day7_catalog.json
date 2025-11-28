@@ -1,0 +1,12 @@
+[
+  {"id": "milk_1l", "name": "Milk 1L", "category": "Groceries", "price": 60, "tags": ["dairy"], "unit": "1L"},
+  {"id": "bread_ww", "name": "Whole Wheat Bread", "category": "Groceries", "price": 45, "tags": ["vegan"], "unit": "loaf"},
+  {"id": "eggs_12", "name": "Eggs (12)", "category": "Groceries", "price": 110, "tags": ["protein"], "unit": "dozen"},
+  {"id": "peanut_butter", "name": "Peanut Butter 250g", "category": "Groceries", "price": 220, "tags": ["spread"], "unit": "250g"},
+  {"id": "pasta_500g", "name": "Pasta 500g", "category": "Groceries", "price": 90, "tags": ["pasta"], "unit": "500g"},
+  {"id": "pasta_sauce", "name": "Pasta Sauce 400g", "category": "Groceries", "price": 180, "tags": ["sauce"], "unit": "400g"},
+  {"id": "pizza_margherita", "name": "Pizza Margherita (Ready)", "category": "Prepared food", "price": 299, "tags": ["pizza"], "unit": "piece"},
+  {"id": "sandwich_club", "name": "Club Sandwich", "category": "Prepared food", "price": 159, "tags": ["sandwich"], "unit": "piece"},
+  {"id": "chips_100g", "name": "Potato Chips 100g", "category": "Snacks", "price": 49, "tags": ["snack"], "unit": "100g"},
+  {"id": "juice_1l", "name": "Orange Juice 1L", "category": "Groceries", "price": 120, "tags": ["drink"], "unit": "1L"}
+]
