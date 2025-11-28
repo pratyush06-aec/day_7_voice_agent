@@ -1,214 +1,188 @@
-# AI Voice Agents Challenge - Starter Repository
+Day 7 — Food & Grocery Ordering Voice Agent (README)
 
-Welcome to the **AI Voice Agents Challenge** by [murf.ai](https://murf.ai)!
-
-## About the Challenge
-
-We just launched **Murf Falcon** – the consistently fastest TTS API, and you're going to be among the first to test it out in ways never thought before!
-
-**Build 10 AI Voice Agents over the course of 10 Days** along with help from our devs and the community champs, and win rewards!
-
-### How It Works
-
-- One task to be provided everyday along with a GitHub repo for reference
-- Build a voice agent with specific personas and skills
-- Post on GitHub and share with the world on LinkedIn!
-
-## Repository Structure
-
-This is a **monorepo** that contains both the backend and frontend for building voice agent applications. It's designed to be your starting point for each day's challenge task.
-
-```
-falcon-tdova-nov25-livekit/
-├── backend/          # LiveKit Agents backend with Murf Falcon TTS
-├── frontend/         # React/Next.js frontend for voice interaction
-├── start_app.sh      # Convenience script to start all services
-└── README.md         # This file
-```
-
-### Backend
-
-The backend is based on [LiveKit's agent-starter-python](https://github.com/livekit-examples/agent-starter-python) with modifications to integrate **Murf Falcon TTS** for ultra-fast, high-quality voice synthesis.
-
-**Features:**
-
-- Complete voice AI agent framework using LiveKit Agents
-- Murf Falcon TTS integration for fastest text-to-speech
-- LiveKit Turn Detector for contextually-aware speaker detection
-- Background voice cancellation
-- Integrated metrics and logging
-- Complete test suite with evaluation framework
-- Production-ready Dockerfile
-
-[→ Backend Documentation](./backend/README.md)
-
-### Frontend
-
-The frontend is based on [LiveKit's agent-starter-react](https://github.com/livekit-examples/agent-starter-react), providing a modern, beautiful UI for interacting with your voice agents.
-
-**Features:**
-
-- Real-time voice interaction with LiveKit Agents
-- Camera video streaming support
-- Screen sharing capabilities
-- Audio visualization and level monitoring
-- Light/dark theme switching
-- Highly customizable branding and UI
-
-[→ Frontend Documentation](./frontend/README.md)
-
-## Quick Start
-
-### Prerequisites
-
-Make sure you have the following installed:
-
-- Python 3.9+ with [uv](https://docs.astral.sh/uv/) package manager
-- Node.js 18+ with pnpm
-- [LiveKit CLI](https://docs.livekit.io/home/cli/cli-setup) (optional but recommended)
-- [LiveKit Server](https://docs.livekit.io/home/self-hosting/local/) for local development
-
-### 1. Clone the Repository
-
-```bash
-git clone <your-repo-url>
-cd falcon-tdova-nov25-livekit
-```
-
-### 2. Backend Setup
-
-```bash
-cd backend
-
-# Install dependencies
-uv sync
-
-# Copy environment file and configure
-cp .env.example .env.local
-
-# Edit .env.local with your credentials:
-# - LIVEKIT_URL
-# - LIVEKIT_API_KEY
-# - LIVEKIT_API_SECRET
-# - MURF_API_KEY (for Falcon TTS)
-# - GOOGLE_API_KEY (for Gemini LLM)
-# - DEEPGRAM_API_KEY (for Deepgram STT)
-
-# Download required models
-uv run python src/agent.py download-files
-```
-
-For LiveKit Cloud users, you can automatically populate credentials:
-
-```bash
-lk cloud auth
-lk app env -w -d .env.local
-```
-
-### 3. Frontend Setup
-
-```bash
-cd frontend
-
-# Install dependencies
-pnpm install
-
-# Copy environment file and configure
-cp .env.example .env.local
-
-# Edit .env.local with the same LiveKit credentials
-```
-
-### 4. Run the Application
-
-#### Install livekit server
-
-```bash
-brew install livekit
-```
-
-You have two options:
-
-#### Option A: Use the convenience script (runs everything)
-
-```bash
-# From the root directory
-chmod +x start_app.sh
-./start_app.sh
-```
-
-This will start:
-
-- LiveKit Server (in dev mode)
-- Backend agent (listening for connections)
-- Frontend app (at http://localhost:3000)
-
-#### Option B: Run services individually
-
-```bash
-# Terminal 1 - LiveKit Server
-livekit-server --dev
-
-# Terminal 2 - Backend Agent
-cd backend
-uv run python src/agent.py dev
-
-# Terminal 3 - Frontend
-cd frontend
-pnpm dev
-```
-
-Then open http://localhost:3000 in your browser!
-
-## Daily Challenge Tasks
-
-Each day, you'll receive a new task that builds upon your voice agent. The tasks will help you:
-
-- Implement different personas and conversation styles
-- Add custom tools and capabilities
-- Integrate with external APIs
-- Build domain-specific agents (customer service, tutoring, etc.)
-- Optimize performance and user experience
-
-**Stay tuned for daily task announcements!**
-
-## Documentation & Resources
-
-- [Murf Falcon TTS Documentation](https://murf.ai/api/docs/text-to-speech/streaming)
-- [LiveKit Agents Documentation](https://docs.livekit.io/agents)
-- [Original Backend Template](https://github.com/livekit-examples/agent-starter-python)
-- [Original Frontend Template](https://github.com/livekit-examples/agent-starter-react)
-
-## Testing
-
-The backend includes a comprehensive test suite:
-
-```bash
-cd backend
-uv run pytest
-```
-
-Learn more about testing voice agents in the [LiveKit testing documentation](https://docs.livekit.io/agents/build/testing/).
-
-## Contributing & Community
-
-This is a challenge repository, but we encourage collaboration and knowledge sharing!
-
-- Share your solutions and learnings on GitHub
-- Post about your progress on LinkedIn
-- Join the [LiveKit Community Slack](https://livekit.io/join-slack)
-- Connect with other challenge participants
-
-## License
-
-This project is based on MIT-licensed templates from LiveKit and includes integration with Murf Falcon. See individual LICENSE files in backend and frontend directories for details.
-
-## Have Fun!
-
-Remember, the goal is to learn, experiment, and build amazing voice AI agents. Don't hesitate to be creative and push the boundaries of what's possible with Murf Falcon and LiveKit!
-
-Good luck with the challenge!
+🎙️ **Day 7: Food & Grocery Ordering Voice Agent**
+Build a voice-first shopping assistant that adds items to a cart, supports simple “ingredients for X” requests, and saves the final order to JSON.
 
 ---
 
-Built for the AI Voice Agents Challenge by murf.ai
+What this project does (MVP)
+
+* Loads a small **catalog** (JSON).
+* Lets a user add/remove/update items to a **cart** via natural voice.
+* Supports simple “ingredients for X” mapping (recipes → multiple items).
+* Shows the cart on request.
+* When the user says “That’s all / Place my order / I’m done”, agent:
+
+  * Confirms the final cart and total,
+  * Saves an order JSON to `shared-data/orders/` (one file per order),
+  * Clears the session cart.
+
+---
+
+Files & paths (important)
+
+* `backend/src/agent.py` — main agent code (voice pipeline + tools).
+* `shared-data/day7_catalog.json` — **catalog** (you must create this).
+* `shared-data/orders/` — generated order files (auto-created).
+* Example per-session state: `ctx.userdata["catalog"]`, `ctx.userdata["cart"]`.
+
+---
+
+Example files
+
+### Example `shared-data/day7_catalog.json`
+
+Create this file with at least 10–20 items. Example entry format:
+
+```json
+[
+  {
+    "id": "bread_ww",
+    "name": "Whole Wheat Bread",
+    "category": "Groceries",
+    "price": 45,
+    "tags": ["bread", "vegan"]
+  },
+  {
+    "id": "peanut_butter",
+    "name": "Peanut Butter (Creamy) 350g",
+    "category": "Groceries",
+    "price": 220,
+    "tags": ["spread", "snack"]
+  },
+  {
+    "id": "milk_1l",
+    "name": "Milk 1L",
+    "category": "Groceries",
+    "price": 56,
+    "tags": ["dairy"]
+  },
+  {
+    "id": "pasta_500g",
+    "name": "Pasta 500g",
+    "category": "Groceries",
+    "price": 120,
+    "tags": ["pasta", "italian"]
+  },
+  {
+    "id": "pasta_sauce",
+    "name": "Pasta Sauce 400g",
+    "category": "Groceries",
+    "price": 150,
+    "tags": ["sauce"]
+  }
+  // ...add more items
+]
+```
+
+Example `shared-data/orders/current-order.json` (sample)
+
+(This is the same sample I provided previously; orders are saved with timestamps in filenames by default.)
+
+```json
+{
+  "customer_name": "Rahul Singh",
+  "address": "Bangalore, Karnataka",
+  "items": [
+    { "id": "bread_ww", "name": "Whole Wheat Bread", "quantity": 2, "price": 45 },
+    { "id": "peanut_butter", "name": "Peanut Butter (Creamy)", "quantity": 1, "price": 220 },
+    { "id": "milk_1l", "name": "Milk 1L", "quantity": 1, "price": 56 }
+  ],
+  "total": 366,
+  "timestamp": "2025-02-15T17:42:18.232Z"
+}
+```
+
+---
+
+Code changes / where to put things (short guide)
+
+1. Catalog load & session userdata
+
+* `load_catalog()` should read `shared-data/day7_catalog.json`.
+* In `entrypoint()` load `catalog = load_catalog()` and pass into the realtime session via `AgentSession(..., userdata={"catalog": catalog, "cart": []}, ...)`. This ensures every session has access to the catalog and an empty cart.
+
+2. Tools (function_tool)
+
+Add these `@function_tool()` methods inside your `Assistant` class so the LLM can call them reliably:
+
+* `add_to_cart(ctx: RunContext, item_id: str, quantity: int = 1, notes: str | None = None) -> str`
+* `add_recipe(ctx: RunContext, recipe_name: str) -> str`
+* `remove_from_cart(ctx: RunContext, item_id: str) -> str`
+* `list_cart(ctx: RunContext) -> str`
+* `place_order(ctx: RunContext, customer_name: str | None = None, address: str | None = None) -> str`
+
+Place all these tool functions in `Assistant` (they already exist in the code you showed — keep them there).
+
+3. A helper to resolve user item text → item id
+
+* A `resolve_item_id(catalog, user_text)` helper helps map free-form item mentions to catalog IDs (exact match then partial / tag search).
+
+4. Recipes mapping
+
+* Keep a small `RECIPES` dict for “ingredients for X” that maps dish names to list of item IDs.
+
+5. Saving orders
+
+* `save_order(order: dict) -> Path` — create a timestamped file under `shared-data/orders/`.
+
+6. Session state usage
+
+* Use `ctx.userdata["cart"]` and `ctx.userdata["catalog"]` for each session. Prefer passing `userdata` to `AgentSession` and not attempting to write to `JobContext` (use `ctx.proc.userdata` only for process-global userdata; session-level per-call data belongs in `session`/`ctx.userdata`).
+
+---
+
+Suggested conversation flow (agent behavior)
+
+* Greet and say what you can do (list categories or sample items).
+* If user says “Add X”:
+
+  * Resolve `X` → item id (or ask for clarifying question if ambiguous).
+  * Call `add_to_cart`.
+  * Confirm: “Added 2 × Whole Wheat Bread to your cart.”
+* If user says “I need ingredients for peanut butter sandwich”:
+
+  * Call `add_recipe("peanut butter sandwich")`
+  * Confirm what was added.
+* If user asks “What’s in my cart?”:
+
+  * Call `list_cart()` and speak the reply (line breaks ok for debug; TTS will speak it).
+* If user says “Remove bread” or “Remove item bread_ww”:
+
+  * Resolve and call `remove_from_cart`.
+* If user says “Place my order / That’s all”:
+
+  * Ask for optional `customer_name` and `address` if missing.
+  * Call `place_order(...)` — returns saved filename and total.
+  * Respond: “Order placed — saved as order-20250... Total ₹xxx. Thank you!”
+
+---
+
+How to test locally
+
+1. Ensure `shared-data/day7_catalog.json` exists and is valid JSON.
+2. Start the agent worker:
+
+   ```bash
+   uv run python src/agent.py dev
+   ```
+3. Use the provided LiveKit web UI for the project to join the agent room and speak your commands, or call the agent with test messages if you have a local test harness.
+4. Check `shared-data/orders/` for new `order-*.json` files after placing orders.
+
+----
+
+MVP checklist (Day 7)
+
+* [ ] `day7_catalog.json` exists with 10+ items.
+* [ ] Agent loads catalog into session `userdata`.
+* [ ] `add_to_cart`, `add_recipe`, `remove_from_cart`, `list_cart`, `place_order` tools work and are decorated with `@function_tool`.
+* [ ] Agent confirms cart changes by voice/text.
+* [ ] When user says “place order”, order JSON file is saved to `shared-data/orders/`.
+* [ ] Cart cleared after order placement.
+
+
+🚀 Day 7 of #10DaysofAIVoiceAgents — I Built a Food & Grocery Ordering Voice Agent!
+🎯 My agent can now: ✔ add items to a cart, supports simple “ingredients for X” requests, and saves the final order to JSON!!
+
+
+#MurfAI #VoiceAI #LiveKit #Gemini #AIAgents #FraudDetection #BankingAI #BuildInPublic #TTS #STT #GenAI
